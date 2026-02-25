@@ -2,14 +2,23 @@ using UnityEngine;
 
 public class ButtonLogic : MonoBehaviour
 {
-    [SerializeField] MonoBehaviour action;
+    [SerializeField] private MonoBehaviour action;
+    [SerializeField] private LayerMask mask;
+    private int objectCount = 0;
 
+    
     private void OnCollisionEnter(Collision other)
     {
+        objectCount += 1;
         action.enabled = true;
     }
     private void OnCollisionExit(Collision other)
     {
-        action.enabled = false;
+        objectCount -= 1;
+        if (objectCount <= 0)
+        {
+            action.enabled = false;
+            objectCount = 0;
+        }
     }
 }
