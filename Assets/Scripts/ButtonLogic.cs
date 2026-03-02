@@ -9,16 +9,22 @@ public class ButtonLogic : MonoBehaviour
     
     private void OnCollisionEnter(Collision other)
     {
-        objectCount += 1;
-        action.enabled = true;
+        if (!other.gameObject.CompareTag("NoButton"))
+        {
+            objectCount += 1;
+            action.enabled = true;
+        }
     }
     private void OnCollisionExit(Collision other)
     {
-        objectCount -= 1;
-        if (objectCount <= 0)
+        if (!other.gameObject.CompareTag("NoButton"))
         {
-            action.enabled = false;
-            objectCount = 0;
+            objectCount -= 1;
+            if (objectCount <= 0)
+            {
+                action.enabled = false;
+                objectCount = 0;
+            }
         }
     }
 }
