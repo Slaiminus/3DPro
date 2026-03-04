@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private bool isGrounded = false;
     private string groundTag = "Ground";
+    private int objectCount = 0;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
     }
 
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag(groundTag))
         {
+            objectCount += 1;
             isGrounded = true;
         }
     }
@@ -49,7 +52,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag(groundTag))
         {
-            isGrounded = false;
+            objectCount -= 1;
+            if (objectCount <= 0)
+            {
+                isGrounded = false;
+                objectCount = 0;
+            }
         }
     }
 }

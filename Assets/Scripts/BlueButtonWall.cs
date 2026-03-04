@@ -9,6 +9,9 @@ public class BlueButtonWall : MonoBehaviour
     }
     private void OnDisable()
     {
-        wall.SetActive(true);
+        if (wall != null)
+        {
+            wall.SetActive(true);
+        }
     }
 }
